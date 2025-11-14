@@ -1,9 +1,7 @@
 name: Deploy to Staging
 
-# Se ejecuta cuando:
-# - Se hace merge a staging (push después de merge, no push directo - bloqueado por Branch Protection)
-# - Ejecución manual desde GitHub Actions
-# NOTA: Vercel auto-deploy se puede desactivar o configurar para ignorar cambios en backend
+# Se ejecuta en push a staging o manualmente
+# NOTA: Si usas Vercel, desactiva auto-deploy o configura para ignorar cambios en backend
 on:
   push:
     branches: [staging]
@@ -27,51 +25,14 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Check for frontend changes
-        id: frontend_changes
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          elif git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
-            if git diff --name-only HEAD~1 HEAD | grep -q "^frontend/"; then
-              echo "has_changes=true" >> $GITHUB_OUTPUT
-            else
-              echo "has_changes=false" >> $GITHUB_OUTPUT
-            fi
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Check for backend changes
-        id: backend_changes
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          elif git rev-parse --verify HEAD~1 >/dev/null 2>&1; then
-            if git diff --name-only HEAD~1 HEAD | grep -q "^backend/"; then
-              echo "has_changes=true" >> $GITHUB_OUTPUT
-            else
-              echo "has_changes=false" >> $GITHUB_OUTPUT
-            fi
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-
       - name: Deploy Frontend
-        if: steps.frontend_changes.outputs.has_changes == 'true'
         working-directory: ./frontend
         run: |
           echo "Deploying frontend to staging..."
           # Agregar comandos de deploy aquí (ej: vercel --prod --token=${{ secrets.VERCEL_TOKEN }})
 
       - name: Deploy Backend
-        if: steps.backend_changes.outputs.has_changes == 'true'
         working-directory: ./backend
         run: |
           echo "Deploying backend to staging..."
           # Agregar comandos de deploy aquí (ej: railway up, aws deploy, etc.)
-
-      - name: Run Integration Tests
-        run: |
-          echo "Running integration tests..."
-          # Agregar tests de integración aquí

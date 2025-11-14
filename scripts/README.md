@@ -1,6 +1,8 @@
 # Scripts Helper para Crear Ramas
 
-Scripts útiles para crear ramas siguiendo las convenciones del proyecto.
+Scripts opcionales para crear ramas siguiendo las convenciones del proyecto.
+
+**Nota:** Estos scripts son **opcionales**. Si tu flujo de trabajo usa GitHub Projects para crear ramas, puedes usar ese método en su lugar. Los scripts están disponibles como alternativa para quienes prefieren trabajar desde la terminal.
 
 ## Scripts Disponibles
 

@@ -1,8 +1,6 @@
 # Estrategia de Ramas
 
-## Estructura de Ramas
-
-Este proyecto utiliza una estrategia de ramas basada en Git Flow con las siguientes ramas principales:
+Estrategia simple basada en Git Flow adaptada para equipos de frontend y backend.
 
 ### Ramas Principales
 
@@ -29,27 +27,12 @@ Este proyecto utiliza una estrategia de ramas basada en Git Flow con las siguien
   - Se actualiza mediante merge desde feature branches del backend
   - Se mergea a `staging` cuando está listo para QA
 
-## Flujo de Trabajo
+## Flujo de Trabajo Simple
 
-### Desarrollo de Features
-
-1. Crear una rama feature desde la rama de desarrollo correspondiente:
-
-   ```bash
-   # Para frontend
-   git checkout dev-frontend
-   git checkout -b feature/nombre-feature
-
-   # Para backend
-   git checkout dev-backend
-   git checkout -b feature/nombre-feature
-   ```
-
-2. Desarrollar y hacer commits en la rama feature
-
-3. Crear Pull Request hacia la rama de desarrollo correspondiente (`dev-frontend` o `dev-backend`)
-
-4. Después de revisión y aprobación, mergear a la rama de desarrollo
+1. **Crear rama feature** desde `dev-frontend` o `dev-backend`
+2. **Desarrollar** y hacer commits
+3. **Crear Pull Request** hacia la rama de desarrollo correspondiente
+4. **Mergear** después de revisión
 
 ### Proceso hacia Staging
 
@@ -77,63 +60,23 @@ Este proyecto utiliza una estrategia de ramas basada en Git Flow con las siguien
 
 3. Después de aprobación, mergear y crear tag de versión
 
-## Convenciones de Nombres
+## Convenciones de Nombres (Opcionales)
 
-### Formato General
+Formato recomendado: `tipo/equipo/nombre`
 
-Las ramas deben seguir el formato: `tipo/equipo/nombre-descriptivo`
+**Tipos:** `feature`, `bugfix`, `refactor`, `hotfix`, `release`  
+**Equipos:** `frontend`, `backend`
 
-### Tipos de Ramas
+**Ejemplos:**
+- `feature/frontend/login-google`
+- `bugfix/backend/api-timeout`
+- `hotfix/frontend/security-patch`
 
-- **Features**: `feature/equipo/nombre-descriptivo`
-  - Ejemplos: `feature/frontend/login-google`, `feature/backend/api-auth`
-- **Bugs**: `bugfix/equipo/nombre-descriptivo`
-  - Ejemplos: `bugfix/frontend/login-error-500`, `bugfix/backend/api-timeout`
-- **Refactors**: `refactor/equipo/nombre-descriptivo`
-  - Ejemplos: `refactor/frontend/component-structure`, `refactor/backend/auth-service`
-  - **Nota**: Mejora el código sin cambiar funcionalidad
-- **Hotfixes**: `hotfix/equipo/nombre-descriptivo` (desde `main`)
-  - Ejemplos: `hotfix/frontend/security-patch`, `hotfix/backend/payment-fix`
-- **Releases**: `release/v1.0.0`
-  - Ejemplos: `release/v1.2.0`, `release/v2.0.0`
+**Nota:** Estas son recomendaciones. El equipo puede ajustarlas según sus necesidades. Los scripts helper son opcionales si usas GitHub Projects.
 
-### Equipos Válidos
+## Protección de Ramas (Opcional)
 
-- `frontend` - Para código del frontend
-- `backend` - Para código del backend
+- `main` y `staging`: Protección recomendada (requiere PR y aprobación)
+- `dev-frontend`/`dev-backend`: Flexibles para desarrollo
 
-### Crear Ramas con Scripts Helper
-
-Para facilitar la creación de ramas, usa los scripts helper en `scripts/`:
-
-```bash
-# Crear feature
-./scripts/new-feature.sh frontend login-google
-
-# Crear bugfix
-./scripts/new-bugfix.sh backend api-timeout
-
-# Crear refactor
-./scripts/new-refactor.sh frontend component-structure
-
-# Crear hotfix
-./scripts/new-hotfix.sh frontend security-patch
-```
-
-Ver [documentación de scripts](../scripts/README.md) para más detalles.
-
-### Validación Automática
-
-GitHub Actions valida automáticamente que las ramas cumplan con el formato requerido. Si una rama no cumple el formato:
-
-- ❌ El workflow `Validate Branch Name` fallará
-- ❌ No se podrá mergear hasta corregir el nombre
-- ✅ Se mostrará un mensaje con el formato correcto y ejemplos
-
-**Para evitar problemas**: Usa siempre los scripts helper que garantizan el formato correcto.
-
-## Protección de Ramas
-
-- `main`: Requiere aprobación de revisores, no permite push directo
-- `staging`: Requiere aprobación de revisores, no permite push directo
-- `dev-frontend`/`dev-backend`: Permite push directo del equipo de desarrollo
+Ver [BRANCH_PROTECTION.md](./BRANCH_PROTECTION.md) para configuración detallada.
