@@ -1,7 +1,7 @@
 ---
 name: User Story / Task
 about: Crear una tarea basada en una User Story
-title: '[TASK] '
+title: '[US] '
 labels: task, user-story
 assignees: ''
 ---
