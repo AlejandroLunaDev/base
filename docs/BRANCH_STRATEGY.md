@@ -72,4 +72,4 @@ Formato recomendado: `tipo/equipo/nombre`
 - `bugfix/backend/api-timeout`
 - `hotfix/frontend/security-patch`
 
-**Nota:** Estas son recomendaciones. El equipo puede ajustarlas según sus necesidades. Los scripts helper son opcionales si usas GitHub Projects.
+**Nota:** Estas son recomendaciones. El equipo puede ajustarlas según sus necesidades. Las ramas se crean desde GitHub Projects.

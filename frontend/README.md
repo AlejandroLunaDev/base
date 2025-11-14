@@ -35,7 +35,7 @@ Crea un archivo `.env` basado en `.env.example` (si existe) y configura las vari
 
 ## Deploy
 
-El frontend se deploya automáticamente a través de GitHub Actions cuando hay cambios en esta carpeta. Ver [documentación de Vercel](../docs/VERCEL_CONFIG.md) para más detalles.
+Configura el deploy según tu plataforma (Vercel, Netlify, etc.). Ver [documentación de Vercel](../docs/VERCEL_CONFIG.md) para más detalles.
 
 ## Documentación
 
