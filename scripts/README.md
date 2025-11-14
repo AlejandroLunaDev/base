@@ -10,18 +10,27 @@ Crea una nueva rama feature con formato: `feature/equipo/nombre-feature`
 
 **Uso:**
 ```bash
+# Modo interactivo (el script pregunta todo)
+./scripts/new-feature.sh
+
+# Modo con parámetros (rápido)
 ./scripts/new-feature.sh [frontend|backend|ux-ui] nombre-feature
 ```
 
 **Ejemplos:**
 ```bash
-# Feature de frontend
+# Modo interactivo
+./scripts/new-feature.sh
+# Te mostrará un menú:
+#   1) frontend
+#   2) backend
+#   3) ux-ui
+# Selecciona el equipo (1-3 o nombre): 1
+# Nombre de la feature: login-google
+
+# Modo con parámetros (rápido)
 ./scripts/new-feature.sh frontend login-google
-
-# Feature de backend
 ./scripts/new-feature.sh backend api-authentication
-
-# Feature de UX/UI
 ./scripts/new-feature.sh ux-ui dashboard-redesign
 ```
 
@@ -38,18 +47,22 @@ Crea una nueva rama bugfix con formato: `bugfix/equipo/nombre-bugfix`
 
 **Uso:**
 ```bash
+# Modo interactivo (el script pregunta todo)
+./scripts/new-bugfix.sh
+
+# Modo con parámetros (rápido)
 ./scripts/new-bugfix.sh [frontend|backend|ux-ui] nombre-bugfix
 ```
 
 **Ejemplos:**
 ```bash
-# Bugfix de frontend
+# Modo interactivo
+./scripts/new-bugfix.sh
+# Te mostrará un menú para elegir el equipo y luego pedirá el nombre
+
+# Modo con parámetros (rápido)
 ./scripts/new-bugfix.sh frontend login-error-500
-
-# Bugfix de backend
 ./scripts/new-bugfix.sh backend api-timeout
-
-# Bugfix de UX/UI
 ./scripts/new-bugfix.sh ux-ui mobile-menu-overlap
 ```
 
@@ -66,18 +79,22 @@ Crea una nueva rama refactor con formato: `refactor/equipo/nombre-refactor`
 
 **Uso:**
 ```bash
+# Modo interactivo (el script pregunta todo)
+./scripts/new-refactor.sh
+
+# Modo con parámetros (rápido)
 ./scripts/new-refactor.sh [frontend|backend|ux-ui] nombre-refactor
 ```
 
 **Ejemplos:**
 ```bash
-# Refactor de frontend
+# Modo interactivo
+./scripts/new-refactor.sh
+# Te mostrará un menú para elegir el equipo y luego pedirá el nombre
+
+# Modo con parámetros (rápido)
 ./scripts/new-refactor.sh frontend component-structure
-
-# Refactor de backend
 ./scripts/new-refactor.sh backend auth-service
-
-# Refactor de UX/UI
 ./scripts/new-refactor.sh ux-ui layout-optimization
 ```
 
@@ -95,15 +112,22 @@ Crea una nueva rama hotfix con formato: `hotfix/equipo/nombre-hotfix`
 
 **Uso:**
 ```bash
+# Modo interactivo (el script pregunta todo)
+./scripts/new-hotfix.sh
+
+# Modo con parámetros (rápido)
 ./scripts/new-hotfix.sh [frontend|backend|ux-ui] nombre-hotfix
 ```
 
 **Ejemplos:**
 ```bash
-# Hotfix de frontend
-./scripts/new-hotfix.sh frontend security-patch
+# Modo interactivo
+./scripts/new-hotfix.sh
+# Te mostrará un menú para elegir el equipo y luego pedirá el nombre
+# ⚠️ NOTA: Los hotfixes se crean desde main (producción)
 
-# Hotfix de backend
+# Modo con parámetros (rápido)
+./scripts/new-hotfix.sh frontend security-patch
 ./scripts/new-hotfix.sh backend payment-gateway-fix
 ```
 

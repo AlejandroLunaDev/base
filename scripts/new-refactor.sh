@@ -12,19 +12,53 @@ REFACTOR_NAME=$2
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Validar argumentos
+# Modo interactivo si no se proporcionan todos los parámetros
 if [ -z "$TEAM" ] || [ -z "$REFACTOR_NAME" ]; then
-  echo -e "${RED}❌ Error: Debes proporcionar el equipo y el nombre del refactor${NC}"
+  echo -e "${BLUE}🔧 Crear nueva rama refactor${NC}"
   echo ""
-  echo "Uso: ./scripts/new-refactor.sh [frontend|backend|ux-ui] nombre-refactor"
-  echo ""
-  echo "Ejemplos:"
-  echo "  ./scripts/new-refactor.sh frontend component-structure"
-  echo "  ./scripts/new-refactor.sh backend auth-service"
-  echo "  ./scripts/new-refactor.sh ux-ui layout-optimization"
-  exit 1
+  
+  # Solicitar equipo
+  if [ -z "$TEAM" ]; then
+    echo -e "${YELLOW}Equipos disponibles:${NC}"
+    echo "  1) frontend"
+    echo "  2) backend"
+    echo "  3) ux-ui"
+    echo ""
+    read -p "Selecciona el equipo (1-3 o nombre): " TEAM_INPUT
+    
+    case "$TEAM_INPUT" in
+      1|frontend) TEAM="frontend" ;;
+      2|backend) TEAM="backend" ;;
+      3|ux-ui) TEAM="ux-ui" ;;
+      *) 
+        if [ "$TEAM_INPUT" == "frontend" ] || [ "$TEAM_INPUT" == "backend" ] || [ "$TEAM_INPUT" == "ux-ui" ]; then
+          TEAM="$TEAM_INPUT"
+        else
+          echo -e "${RED}❌ Opción inválida${NC}"
+          exit 1
+        fi
+        ;;
+    esac
+  fi
+  
+  # Solicitar nombre del refactor
+  if [ -z "$REFACTOR_NAME" ]; then
+    echo ""
+    echo -e "${YELLOW}Nombre del refactor:${NC}"
+    echo -e "${BLUE}(Usa minúsculas y guiones, ej: component-structure)${NC}"
+    read -p "> " REFACTOR_NAME
+  fi
+  
+  # Validar que se proporcionó todo
+  if [ -z "$TEAM" ] || [ -z "$REFACTOR_NAME" ]; then
+    echo -e "${RED}❌ Error: Debes proporcionar el equipo y el nombre del refactor${NC}"
+    echo ""
+    echo "Uso: ./scripts/new-refactor.sh [frontend|backend|ux-ui] nombre-refactor"
+    exit 1
+  fi
 fi
 
 # Validar que el equipo sea válido

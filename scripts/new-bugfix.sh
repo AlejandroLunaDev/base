@@ -12,19 +12,53 @@ BUGFIX_NAME=$2
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Validar argumentos
+# Modo interactivo si no se proporcionan todos los parámetros
 if [ -z "$TEAM" ] || [ -z "$BUGFIX_NAME" ]; then
-  echo -e "${RED}❌ Error: Debes proporcionar el equipo y el nombre del bugfix${NC}"
+  echo -e "${BLUE}🐛 Crear nueva rama bugfix${NC}"
   echo ""
-  echo "Uso: ./scripts/new-bugfix.sh [frontend|backend|ux-ui] nombre-bugfix"
-  echo ""
-  echo "Ejemplos:"
-  echo "  ./scripts/new-bugfix.sh frontend login-error-500"
-  echo "  ./scripts/new-bugfix.sh backend api-timeout"
-  echo "  ./scripts/new-bugfix.sh ux-ui mobile-menu-overlap"
-  exit 1
+  
+  # Solicitar equipo
+  if [ -z "$TEAM" ]; then
+    echo -e "${YELLOW}Equipos disponibles:${NC}"
+    echo "  1) frontend"
+    echo "  2) backend"
+    echo "  3) ux-ui"
+    echo ""
+    read -p "Selecciona el equipo (1-3 o nombre): " TEAM_INPUT
+    
+    case "$TEAM_INPUT" in
+      1|frontend) TEAM="frontend" ;;
+      2|backend) TEAM="backend" ;;
+      3|ux-ui) TEAM="ux-ui" ;;
+      *) 
+        if [ "$TEAM_INPUT" == "frontend" ] || [ "$TEAM_INPUT" == "backend" ] || [ "$TEAM_INPUT" == "ux-ui" ]; then
+          TEAM="$TEAM_INPUT"
+        else
+          echo -e "${RED}❌ Opción inválida${NC}"
+          exit 1
+        fi
+        ;;
+    esac
+  fi
+  
+  # Solicitar nombre del bugfix
+  if [ -z "$BUGFIX_NAME" ]; then
+    echo ""
+    echo -e "${YELLOW}Nombre del bugfix:${NC}"
+    echo -e "${BLUE}(Usa minúsculas y guiones, ej: login-error-500)${NC}"
+    read -p "> " BUGFIX_NAME
+  fi
+  
+  # Validar que se proporcionó todo
+  if [ -z "$TEAM" ] || [ -z "$BUGFIX_NAME" ]; then
+    echo -e "${RED}❌ Error: Debes proporcionar el equipo y el nombre del bugfix${NC}"
+    echo ""
+    echo "Uso: ./scripts/new-bugfix.sh [frontend|backend|ux-ui] nombre-bugfix"
+    exit 1
+  fi
 fi
 
 # Validar que el equipo sea válido
