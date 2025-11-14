@@ -1,10 +1,18 @@
 ---
 name: Feature Request
-about: Sugerir una idea para este proyecto
+about: Crear una nueva funcionalidad o feature para el usuario final
 title: '[FEATURE] '
 labels: feature
 assignees: ''
 ---
+
+## ¿Cuándo usar este template?
+- ✅ Funcionalidad **simple e independiente** que NO requiere dividirse en subtasks
+- ✅ Ejemplo: "Agregar botón de compartir en redes sociales", "Cambiar color del header", "Agregar tooltip a un campo"
+- ❌ NO usar si requiere múltiples tareas técnicas (usa User Story en ese caso)
+- ❌ NO usar si es parte de una User Story más grande (usa Subtask en ese caso)
+
+**Nota:** Si la funcionalidad requiere trabajo en frontend Y backend, o múltiples tareas técnicas, usa **User Story** en su lugar.
 
 ## ¿Tu solicitud de feature está relacionada con un problema?
 Una descripción clara y concisa del problema. Ej. Siempre me frustra cuando [...]

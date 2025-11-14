@@ -1,13 +1,23 @@
 ---
 name: Sub-tarea Técnica
-about: Crear una sub-tarea técnica partiendo de una User Story
+about: Crear una sub-tarea técnica partiendo de una User Story o Feature
 title: '[SUBTASK] '
 labels: subtask, technical
 assignees: ''
 ---
 
-## User Story Relacionada
-Esta sub-tarea pertenece a la User Story: #issue-number
+## ¿Cuándo usar este template?
+- ✅ Tarea técnica que es **parte de una User Story** (se crea como sub-issue desde la US)
+  - Ejemplo: Si la US es "Login y Registro" (#1), los subtasks serían: "Maquetar formulario" (relacionado con #1), "Conectar con API" (relacionado con #1), "Validaciones" (relacionado con #1)
+- ✅ Tarea técnica **independiente** (configuración, documentación, investigación, etc.)
+  - Ejemplo: "Configurar CI/CD", "Documentar API", "Investigar librería X"
+- ❌ NO usar para bugs o refactors (se trabajan directamente sobre la issue original de bug/refactor)
+- ❌ NO usar si es una funcionalidad nueva completa para el usuario (usa User Story o Feature Request en ese caso)
+
+## User Story o Feature Relacionada (Opcional)
+Si esta sub-tarea es parte de una User Story o Feature más grande, indícalo aquí:
+- Pertenece a: #issue-number
+- Si es una tarea técnica independiente, deja este campo vacío
 
 ## Descripción de la Sub-tarea
 Descripción clara y técnica de lo que se debe implementar en esta sub-tarea específica.
@@ -18,11 +28,11 @@ Descripción clara y técnica de lo que se debe implementar en esta sub-tarea es
 - [ ] 🗄️ Base de Datos (Modelos, migraciones, queries)
 - [ ] 🔐 Autenticación/Autorización
 - [ ] ✅ Testing (Unitarios, integración, E2E)
-- [ ] 🐛 Bugfix (Corrección de error)
-- [ ] 🔧 Refactor (Mejora de código existente)
 - [ ] 📚 Documentación (Actualizar docs)
 - [ ] ⚙️ Configuración (Setup, CI/CD, deployment)
 - [ ] 🔍 Investigación (Spike, POC)
+
+**Nota:** Los bugs y refactors se trabajan directamente sobre la issue original (no se crean subtasks para ellos).
 
 ## Componente
 - [ ] Frontend
@@ -58,7 +68,8 @@ Consideraciones técnicas, decisiones de diseño, o información relevante para 
 
 ## Checklist
 - [ ] La sub-tarea está claramente definida
-- [ ] Se ha identificado la User Story padre
+- [ ] Se ha identificado la User Story/Feature padre (si aplica)
 - [ ] Se han identificado las dependencias técnicas
 - [ ] La estimación es realista (< 1 día idealmente)
+- [ ] No es un bug o refactor (esos se trabajan sobre la issue original)
 

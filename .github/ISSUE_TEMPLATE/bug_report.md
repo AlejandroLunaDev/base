@@ -37,3 +37,5 @@ Cualquier otra información relevante sobre el problema.
 - [ ] He incluido todos los pasos necesarios para reproducir el bug
 - [ ] He incluido información del ambiente
 
+**Nota:** El trabajo de corrección se realizará directamente sobre esta issue. No se crearán subtasks para bugs.
+

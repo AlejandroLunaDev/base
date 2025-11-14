@@ -6,6 +6,12 @@ labels: task, user-story
 assignees: ''
 ---
 
+## ¿Cuándo usar este template?
+- ✅ Funcionalidad que requiere **múltiples tareas técnicas** (se dividirá en Subtasks)
+- ✅ Funcionalidad que requiere trabajo en **frontend Y backend**
+- ✅ Ejemplo: "Login y Registro" → se divide en Subtasks: "Maquetar formulario", "Conectar con API", "Validaciones", "Tests"
+- ❌ NO usar si es una funcionalidad simple que no requiere dividirse (usa Feature Request en ese caso)
+
 ## User Story
 Como **[rol/usuario]** quiero **[acción/funcionalidad]** para **[beneficio/valor]**
 
