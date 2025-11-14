@@ -86,7 +86,7 @@ Las ramas deben seguir el formato: `tipo/equipo/nombre-descriptivo`
 ### Tipos de Ramas
 
 - **Features**: `feature/equipo/nombre-descriptivo`
-  - Ejemplos: `feature/frontend/login-google`, `feature/backend/api-auth`, `feature/ux-ui/dashboard-redesign`
+  - Ejemplos: `feature/frontend/login-google`, `feature/backend/api-auth`
 - **Bugs**: `bugfix/equipo/nombre-descriptivo`
   - Ejemplos: `bugfix/frontend/login-error-500`, `bugfix/backend/api-timeout`
 - **Refactors**: `refactor/equipo/nombre-descriptivo`
@@ -101,7 +101,6 @@ Las ramas deben seguir el formato: `tipo/equipo/nombre-descriptivo`
 
 - `frontend` - Para código del frontend
 - `backend` - Para código del backend
-- `ux-ui` - Para diseño y UX/UI
 
 ### Crear Ramas con Scripts Helper
 

@@ -42,10 +42,10 @@ jobs:
           fi
 
           # Patrones válidos
-          FEATURE_PATTERN="^feature/(frontend|backend|ux-ui)/.+"
-          BUGFIX_PATTERN="^bugfix/(frontend|backend|ux-ui)/.+"
-          HOTFIX_PATTERN="^hotfix/(frontend|backend|ux-ui)/.+"
-          REFACTOR_PATTERN="^refactor/(frontend|backend|ux-ui)/.+"
+          FEATURE_PATTERN="^feature/(frontend|backend)/.+"
+          BUGFIX_PATTERN="^bugfix/(frontend|backend)/.+"
+          HOTFIX_PATTERN="^hotfix/(frontend|backend)/.+"
+          REFACTOR_PATTERN="^refactor/(frontend|backend)/.+"
           RELEASE_PATTERN="^release/v[0-9]+\.[0-9]+\.[0-9]+"
 
           # Verificar si cumple algún patrón
@@ -79,7 +79,6 @@ jobs:
             echo "Equipos válidos:"
             echo "  - frontend"
             echo "  - backend"
-            echo "  - ux-ui"
             echo ""
             echo "Ejemplos válidos:"
             echo "  ✅ feature/frontend/login-google"

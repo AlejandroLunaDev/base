@@ -12,7 +12,6 @@ Usa los scripts helper para crear ramas siguiendo las convenciones:
 # Crear feature
 ./scripts/new-feature.sh frontend login-google
 ./scripts/new-feature.sh backend api-authentication
-./scripts/new-feature.sh ux-ui dashboard-redesign
 
 # Crear bugfix
 ./scripts/new-bugfix.sh frontend login-error-500
@@ -75,5 +74,5 @@ El repositorio incluye validación automática del formato de nombres de ramas:
 
 - **Ramas**: `tipo/equipo/nombre-descriptivo`
   - Ejemplos: `feature/frontend/login-google`, `bugfix/backend/api-timeout`
-- **Equipos**: `frontend`, `backend`, `ux-ui`
+- **Equipos**: `frontend`, `backend`
 - **Tipos**: `feature`, `bugfix`, `refactor`, `hotfix`, `release`

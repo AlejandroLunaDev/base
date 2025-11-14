@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script para crear una nueva rama hotfix con formato: hotfix/equipo/nombre-hotfix
-# Uso: ./scripts/new-hotfix.sh [frontend|backend|ux-ui] nombre-hotfix
+# Uso: ./scripts/new-hotfix.sh [frontend|backend] nombre-hotfix
 # NOTA: Los hotfixes se crean desde main
 
 set -e
@@ -28,16 +28,14 @@ if [ -z "$TEAM" ] || [ -z "$HOTFIX_NAME" ]; then
     echo -e "${YELLOW}Equipos disponibles:${NC}"
     echo "  1) frontend"
     echo "  2) backend"
-    echo "  3) ux-ui"
     echo ""
-    read -p "Selecciona el equipo (1-3 o nombre): " TEAM_INPUT
+    read -p "Selecciona el equipo (1-2 o nombre): " TEAM_INPUT
     
     case "$TEAM_INPUT" in
       1|frontend) TEAM="frontend" ;;
       2|backend) TEAM="backend" ;;
-      3|ux-ui) TEAM="ux-ui" ;;
       *) 
-        if [ "$TEAM_INPUT" == "frontend" ] || [ "$TEAM_INPUT" == "backend" ] || [ "$TEAM_INPUT" == "ux-ui" ]; then
+        if [ "$TEAM_INPUT" == "frontend" ] || [ "$TEAM_INPUT" == "backend" ]; then
           TEAM="$TEAM_INPUT"
         else
           echo -e "${RED}❌ Opción inválida${NC}"
@@ -59,15 +57,15 @@ if [ -z "$TEAM" ] || [ -z "$HOTFIX_NAME" ]; then
   if [ -z "$TEAM" ] || [ -z "$HOTFIX_NAME" ]; then
     echo -e "${RED}❌ Error: Debes proporcionar el equipo y el nombre del hotfix${NC}"
     echo ""
-    echo "Uso: ./scripts/new-hotfix.sh [frontend|backend|ux-ui] nombre-hotfix"
+    echo "Uso: ./scripts/new-hotfix.sh [frontend|backend] nombre-hotfix"
     exit 1
   fi
 fi
 
 # Validar que el equipo sea válido
-if [ "$TEAM" != "frontend" ] && [ "$TEAM" != "backend" ] && [ "$TEAM" != "ux-ui" ]; then
+if [ "$TEAM" != "frontend" ] && [ "$TEAM" != "backend" ]; then
   echo -e "${RED}❌ Error: Equipo inválido${NC}"
-  echo "Equipos válidos: frontend, backend, ux-ui"
+  echo "Equipos válidos: frontend, backend"
   exit 1
 fi
 

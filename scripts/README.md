@@ -14,7 +14,7 @@ Crea una nueva rama feature con formato: `feature/equipo/nombre-feature`
 ./scripts/new-feature.sh
 
 # Modo con parámetros (rápido)
-./scripts/new-feature.sh [frontend|backend|ux-ui] nombre-feature
+./scripts/new-feature.sh [frontend|backend] nombre-feature
 ```
 
 **Ejemplos:**
@@ -24,18 +24,16 @@ Crea una nueva rama feature con formato: `feature/equipo/nombre-feature`
 # Te mostrará un menú:
 #   1) frontend
 #   2) backend
-#   3) ux-ui
-# Selecciona el equipo (1-3 o nombre): 1
+# Selecciona el equipo (1-2 o nombre): 1
 # Nombre de la feature: login-google
 
 # Modo con parámetros (rápido)
 ./scripts/new-feature.sh frontend login-google
 ./scripts/new-feature.sh backend api-authentication
-./scripts/new-feature.sh ux-ui dashboard-redesign
 ```
 
 **Resultado:**
-- Crea la rama desde `dev-frontend` (si es frontend o ux-ui)
+- Crea la rama desde `dev-frontend` (si es frontend)
 - Crea la rama desde `dev-backend` (si es backend)
 - Formato: `feature/frontend/login-google`
 
@@ -51,7 +49,7 @@ Crea una nueva rama bugfix con formato: `bugfix/equipo/nombre-bugfix`
 ./scripts/new-bugfix.sh
 
 # Modo con parámetros (rápido)
-./scripts/new-bugfix.sh [frontend|backend|ux-ui] nombre-bugfix
+./scripts/new-bugfix.sh [frontend|backend] nombre-bugfix
 ```
 
 **Ejemplos:**
@@ -63,11 +61,10 @@ Crea una nueva rama bugfix con formato: `bugfix/equipo/nombre-bugfix`
 # Modo con parámetros (rápido)
 ./scripts/new-bugfix.sh frontend login-error-500
 ./scripts/new-bugfix.sh backend api-timeout
-./scripts/new-bugfix.sh ux-ui mobile-menu-overlap
 ```
 
 **Resultado:**
-- Crea la rama desde `dev-frontend` (si es frontend o ux-ui)
+- Crea la rama desde `dev-frontend` (si es frontend)
 - Crea la rama desde `dev-backend` (si es backend)
 - Formato: `bugfix/frontend/login-error-500`
 
@@ -83,7 +80,7 @@ Crea una nueva rama refactor con formato: `refactor/equipo/nombre-refactor`
 ./scripts/new-refactor.sh
 
 # Modo con parámetros (rápido)
-./scripts/new-refactor.sh [frontend|backend|ux-ui] nombre-refactor
+./scripts/new-refactor.sh [frontend|backend] nombre-refactor
 ```
 
 **Ejemplos:**
@@ -95,11 +92,10 @@ Crea una nueva rama refactor con formato: `refactor/equipo/nombre-refactor`
 # Modo con parámetros (rápido)
 ./scripts/new-refactor.sh frontend component-structure
 ./scripts/new-refactor.sh backend auth-service
-./scripts/new-refactor.sh ux-ui layout-optimization
 ```
 
 **Resultado:**
-- Crea la rama desde `dev-frontend` (si es frontend o ux-ui)
+- Crea la rama desde `dev-frontend` (si es frontend)
 - Crea la rama desde `dev-backend` (si es backend)
 - Formato: `refactor/frontend/component-structure`
 - ⚠️ **NOTA**: Los refactors mejoran el código sin cambiar funcionalidad
@@ -116,7 +112,7 @@ Crea una nueva rama hotfix con formato: `hotfix/equipo/nombre-hotfix`
 ./scripts/new-hotfix.sh
 
 # Modo con parámetros (rápido)
-./scripts/new-hotfix.sh [frontend|backend|ux-ui] nombre-hotfix
+./scripts/new-hotfix.sh [frontend|backend] nombre-hotfix
 ```
 
 **Ejemplos:**
@@ -142,7 +138,6 @@ Crea una nueva rama hotfix con formato: `hotfix/equipo/nombre-hotfix`
 
 - `frontend` - Para features/bugfixes del frontend
 - `backend` - Para features/bugfixes del backend
-- `ux-ui` - Para features/bugfixes de diseño/UX
 
 ## Permisos de Ejecución
 
@@ -235,7 +230,7 @@ Crea commits siguiendo el formato: `tipo(scope): descripción`
 - `revert` - Revertir commit
 
 **Scopes válidos:**
-- `frontend`, `backend`, `ux-ui`, `docs`, `ci`, `config`
+- `frontend`, `backend`, `docs`, `ci`, `config`
 
 **Características:**
 - ✅ Detecta scope automáticamente según la carpeta donde estás

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script para crear una nueva rama refactor con formato: refactor/equipo/nombre-refactor
-# Uso: ./scripts/new-refactor.sh [frontend|backend|ux-ui] nombre-refactor
+# Uso: ./scripts/new-refactor.sh [frontend|backend] nombre-refactor
 
 set -e
 
@@ -25,16 +25,14 @@ if [ -z "$TEAM" ] || [ -z "$REFACTOR_NAME" ]; then
     echo -e "${YELLOW}Equipos disponibles:${NC}"
     echo "  1) frontend"
     echo "  2) backend"
-    echo "  3) ux-ui"
     echo ""
-    read -p "Selecciona el equipo (1-3 o nombre): " TEAM_INPUT
+    read -p "Selecciona el equipo (1-2 o nombre): " TEAM_INPUT
     
     case "$TEAM_INPUT" in
       1|frontend) TEAM="frontend" ;;
       2|backend) TEAM="backend" ;;
-      3|ux-ui) TEAM="ux-ui" ;;
       *) 
-        if [ "$TEAM_INPUT" == "frontend" ] || [ "$TEAM_INPUT" == "backend" ] || [ "$TEAM_INPUT" == "ux-ui" ]; then
+        if [ "$TEAM_INPUT" == "frontend" ] || [ "$TEAM_INPUT" == "backend" ]; then
           TEAM="$TEAM_INPUT"
         else
           echo -e "${RED}❌ Opción inválida${NC}"
@@ -56,20 +54,20 @@ if [ -z "$TEAM" ] || [ -z "$REFACTOR_NAME" ]; then
   if [ -z "$TEAM" ] || [ -z "$REFACTOR_NAME" ]; then
     echo -e "${RED}❌ Error: Debes proporcionar el equipo y el nombre del refactor${NC}"
     echo ""
-    echo "Uso: ./scripts/new-refactor.sh [frontend|backend|ux-ui] nombre-refactor"
+    echo "Uso: ./scripts/new-refactor.sh [frontend|backend] nombre-refactor"
     exit 1
   fi
 fi
 
 # Validar que el equipo sea válido
-if [ "$TEAM" != "frontend" ] && [ "$TEAM" != "backend" ] && [ "$TEAM" != "ux-ui" ]; then
+if [ "$TEAM" != "frontend" ] && [ "$TEAM" != "backend" ]; then
   echo -e "${RED}❌ Error: Equipo inválido${NC}"
-  echo "Equipos válidos: frontend, backend, ux-ui"
+  echo "Equipos válidos: frontend, backend"
   exit 1
 fi
 
 # Determinar la rama base según el equipo
-if [ "$TEAM" == "frontend" ] || [ "$TEAM" == "ux-ui" ]; then
+if [ "$TEAM" == "frontend" ]; then
   BASE_BRANCH="dev-frontend"
 elif [ "$TEAM" == "backend" ]; then
   BASE_BRANCH="dev-backend"
