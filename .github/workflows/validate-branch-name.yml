@@ -1,0 +1,101 @@
+name: Validate Branch Name
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches-ignore:
+      - main
+      - staging
+      - dev-frontend
+      - dev-backend
+
+jobs:
+  validate-branch-name:
+    name: Validate Branch Name Format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get branch name
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BRANCH_NAME="${{ github.head_ref }}"
+          else
+            BRANCH_NAME="${{ github.ref_name }}"
+          fi
+          echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "Branch name: $BRANCH_NAME"
+
+      - name: Validate branch name format
+        run: |
+          BRANCH_NAME="${{ steps.branch.outputs.name }}"
+
+          # Ramas principales permitidas (no se validan)
+          MAIN_BRANCHES="^(main|staging|dev-frontend|dev-backend)$"
+          if echo "$BRANCH_NAME" | grep -qE "$MAIN_BRANCHES"; then
+            echo "✅ Branch name válido: Rama principal (excluida de validación)"
+            exit 0
+          fi
+
+          # Patrones válidos
+          FEATURE_PATTERN="^feature/(frontend|backend|ux-ui)/.+"
+          BUGFIX_PATTERN="^bugfix/(frontend|backend|ux-ui)/.+"
+          HOTFIX_PATTERN="^hotfix/(frontend|backend|ux-ui)/.+"
+          REFACTOR_PATTERN="^refactor/(frontend|backend|ux-ui)/.+"
+          RELEASE_PATTERN="^release/v[0-9]+\.[0-9]+\.[0-9]+"
+
+          # Verificar si cumple algún patrón
+          if echo "$BRANCH_NAME" | grep -qE "$FEATURE_PATTERN"; then
+            echo "✅ Branch name válido: Feature"
+            exit 0
+          elif echo "$BRANCH_NAME" | grep -qE "$BUGFIX_PATTERN"; then
+            echo "✅ Branch name válido: Bugfix"
+            exit 0
+          elif echo "$BRANCH_NAME" | grep -qE "$HOTFIX_PATTERN"; then
+            echo "✅ Branch name válido: Hotfix"
+            exit 0
+          elif echo "$BRANCH_NAME" | grep -qE "$REFACTOR_PATTERN"; then
+            echo "✅ Branch name válido: Refactor"
+            exit 0
+          elif echo "$BRANCH_NAME" | grep -qE "$RELEASE_PATTERN"; then
+            echo "✅ Branch name válido: Release"
+            exit 0
+          else
+            echo "❌ Error: El nombre de la rama no cumple con el formato requerido"
+            echo ""
+            echo "Formato requerido: tipo/equipo/nombre-descriptivo"
+            echo ""
+            echo "Tipos válidos:"
+            echo "  - feature/equipo/nombre"
+            echo "  - bugfix/equipo/nombre"
+            echo "  - hotfix/equipo/nombre"
+            echo "  - refactor/equipo/nombre"
+            echo "  - release/v1.0.0"
+            echo ""
+            echo "Equipos válidos:"
+            echo "  - frontend"
+            echo "  - backend"
+            echo "  - ux-ui"
+            echo ""
+            echo "Ejemplos válidos:"
+            echo "  ✅ feature/frontend/login-google"
+            echo "  ✅ bugfix/backend/api-timeout"
+            echo "  ✅ hotfix/frontend/security-patch"
+            echo "  ✅ refactor/backend/auth-service"
+            echo "  ✅ release/v1.2.0"
+            echo ""
+            echo "Ejemplos inválidos:"
+            echo "  ❌ feature/login-google (falta equipo)"
+            echo "  ❌ login-google (falta tipo y equipo)"
+            echo "  ❌ feature/frontend (falta nombre)"
+            echo ""
+            echo "💡 Tip: Usa los scripts helper para crear ramas:"
+            echo "  ./scripts/new-feature.sh frontend login-google"
+            echo "  ./scripts/new-bugfix.sh backend api-timeout"
+            echo "  ./scripts/new-refactor.sh frontend component-structure"
+            exit 1
+          fi
