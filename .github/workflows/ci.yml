@@ -20,30 +20,54 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Check if frontend has code
+        id: check_frontend
+        run: |
+          if [ -f "frontend/package.json" ] || [ -d "frontend/src" ] || [ -d "frontend/app" ] || [ -f "frontend/pnpm-lock.yaml" ]; then
+            echo "has_code=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_code=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup pnpm
+        if: steps.check_frontend.outputs.has_code == 'true'
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
+      - name: Check if pnpm-lock exists
+        id: check_lock_frontend
+        run: |
+          if [ -f "frontend/pnpm-lock.yaml" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Node.js
+        if: steps.check_frontend.outputs.has_code == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'pnpm'
-          cache-dependency-path: frontend/pnpm-lock.yaml
+          cache: ${{ steps.check_lock_frontend.outputs.exists == 'true' && 'pnpm' || '' }}
+          cache-dependency-path: ${{ steps.check_lock_frontend.outputs.exists == 'true' && 'frontend/pnpm-lock.yaml' || '' }}
 
       - name: Install dependencies
+        if: steps.check_frontend.outputs.has_code == 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Lint
+        if: steps.check_frontend.outputs.has_code == 'true'
         run: pnpm run lint
         continue-on-error: false
 
       - name: Build
+        if: steps.check_frontend.outputs.has_code == 'true'
         run: pnpm run build
         continue-on-error: false
 
       - name: Check if test script exists
+        if: steps.check_frontend.outputs.has_code == 'true'
         id: check_test
         run: |
           if grep -q '"test"' package.json 2>/dev/null; then
@@ -53,9 +77,15 @@ jobs:
           fi
 
       - name: Test
-        if: steps.check_test.outputs.exists == 'true'
+        if: steps.check_frontend.outputs.has_code == 'true' && steps.check_test.outputs.exists == 'true'
         run: pnpm test
         continue-on-error: false
+
+      - name: Skip frontend (no code)
+        if: steps.check_frontend.outputs.has_code == 'false'
+        run: |
+          echo "⚠️ Frontend folder is empty or has no code. Skipping CI checks."
+          exit 0
 
   backend:
     name: Backend CI
@@ -70,30 +100,54 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Check if backend has code
+        id: check_backend
+        run: |
+          if [ -f "backend/package.json" ] || [ -d "backend/src" ] || [ -d "backend/app" ] || [ -f "backend/pnpm-lock.yaml" ]; then
+            echo "has_code=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_code=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup pnpm
+        if: steps.check_backend.outputs.has_code == 'true'
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
+      - name: Check if pnpm-lock exists
+        id: check_lock_backend
+        run: |
+          if [ -f "backend/pnpm-lock.yaml" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Node.js
+        if: steps.check_backend.outputs.has_code == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'pnpm'
-          cache-dependency-path: backend/pnpm-lock.yaml
+          cache: ${{ steps.check_lock_backend.outputs.exists == 'true' && 'pnpm' || '' }}
+          cache-dependency-path: ${{ steps.check_lock_backend.outputs.exists == 'true' && 'backend/pnpm-lock.yaml' || '' }}
 
       - name: Install dependencies
+        if: steps.check_backend.outputs.has_code == 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Lint
+        if: steps.check_backend.outputs.has_code == 'true'
         run: pnpm run lint
         continue-on-error: false
 
       - name: Build
+        if: steps.check_backend.outputs.has_code == 'true'
         run: pnpm run build
         continue-on-error: false
 
       - name: Check if test script exists
+        if: steps.check_backend.outputs.has_code == 'true'
         id: check_test
         run: |
           if grep -q '"test"' package.json 2>/dev/null; then
@@ -103,6 +157,12 @@ jobs:
           fi
 
       - name: Test
-        if: steps.check_test.outputs.exists == 'true'
+        if: steps.check_backend.outputs.has_code == 'true' && steps.check_test.outputs.exists == 'true'
         run: pnpm test
         continue-on-error: false
+
+      - name: Skip backend (no code)
+        if: steps.check_backend.outputs.has_code == 'false'
+        run: |
+          echo "⚠️ Backend folder is empty or has no code. Skipping CI checks."
+          exit 0
