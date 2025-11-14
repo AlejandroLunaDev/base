@@ -25,14 +25,12 @@ Ver [scripts/README.md](./scripts/README.md) para más detalles.
 ## 📚 Documentación
 
 - [Estrategia de Ramas](./docs/BRANCH_STRATEGY.md)
-- [Protección de Ramas](./docs/BRANCH_PROTECTION.md)
 - [Configuración de Vercel](./docs/VERCEL_CONFIG.md)
 
 ## 🔧 Configuración Mínima
 
 1. Clona el repositorio
-2. Configura Branch Protection en `main` y `staging` (opcional pero recomendado)
-3. Personaliza según las necesidades de tu equipo
+2. Personaliza según las necesidades de tu equipo
 
 ## 📝 Convenciones (Opcionales)
 

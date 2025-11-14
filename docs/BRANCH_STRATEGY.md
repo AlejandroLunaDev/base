@@ -73,10 +73,3 @@ Formato recomendado: `tipo/equipo/nombre`
 - `hotfix/frontend/security-patch`
 
 **Nota:** Estas son recomendaciones. El equipo puede ajustarlas según sus necesidades. Los scripts helper son opcionales si usas GitHub Projects.
-
-## Protección de Ramas (Opcional)
-
-- `main` y `staging`: Protección recomendada (requiere PR y aprobación)
-- `dev-frontend`/`dev-backend`: Flexibles para desarrollo
-
-Ver [BRANCH_PROTECTION.md](./BRANCH_PROTECTION.md) para configuración detallada.
