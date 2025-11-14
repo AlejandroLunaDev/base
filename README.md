@@ -32,7 +32,7 @@ Ver [scripts/README.md](./scripts/README.md) para más detalles.
 
 1. Clona el repositorio
 2. Configura Branch Protection en `main` y `staging` (opcional pero recomendado)
-3. Personaliza workflows de deploy según tu plataforma
+3. Personaliza según las necesidades de tu equipo
 
 ## 📝 Convenciones (Opcionales)
 
